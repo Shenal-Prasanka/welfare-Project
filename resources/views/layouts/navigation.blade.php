@@ -19,9 +19,9 @@
             </li>
 
             <!-- User Management Section (Visible only for user with id=3) -->
-            @if(Auth::user()->id == 2)
+            @if(Auth::user()->role == 1)
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('user') }}" class="nav-link">
                         <i class="nav-icon fas fa-user text-green"></i>
                         <p class="text-white">
                             {{ __('User Management') }}
@@ -33,21 +33,41 @@
                 <!-- Rank Section -->
                 <li class="nav-item">
                     <a href="{{ route('rank') }}" class="nav-link">
-                        <i class="nav-icon fas fa-user-tie text-blue"></i>
+                        <i class="nav-icon fas fa-bookmark text-yellow"></i>
                         <p class="text-white">{{ __('Rank Management') }}</p>
                     </a>
                 </li>
-            @endif
+            
 
             <!-- Welfare Section -->
             <li class="nav-item">
                 <a href="{{ route('welfare') }}" class="nav-link">
-                    <i class="nav-icon fas fa-home text-yellow"></i>
+                    <i class="nav-icon fas fa-home text-blue"></i>
                     <p class="text-white">
                         {{ __('Welfare Management') }}
                     </p>
                 </a>
             </li>
+              <!-- Regement Section -->
+            <li class="nav-item">
+                <a href="{{ route('regement') }}" class="nav-link">
+                    <i class="nav-icon fas fa-star text-yellow"></i>
+                    <p class="text-white">
+                        {{ __('Regement Management') }}
+                    </p>
+                </a>
+            </li>
+
+             <!-- Unit Section -->
+            <li class="nav-item">
+                <a href="{{ route('unit') }}" class="nav-link">
+                    <i class="nav-icon fas fa-building text-red"></i>
+                    <p class="text-white">
+                        {{ __('Unit Management') }}
+                    </p>
+                </a>
+            </li>
+        @endif
         </ul>
     </nav>
     <!-- Sidebar Menu -->

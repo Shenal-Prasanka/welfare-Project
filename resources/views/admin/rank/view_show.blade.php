@@ -1,0 +1,51 @@
+{{-- filepath: resources/views/admin/rank/view_show.blade.php --}}
+@extends('layouts.app')
+
+@section('content')
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-bookmark-star-fill"></i>{{ __(' View Rank') }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>{{ __('Rank') }}</label>
+                                <input type="text" class="form-control" value="{{ $rank->rank }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ __('Type') }}</label>
+                                <input type="text" class="form-control" value="{{ $rank->type }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ __('Status') }}</label>
+                                <input type="text" class="form-control" value="{{ $rank->active ? __('Active') : __('Deactive') }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ __('Created At') }}</label>
+                                <input type="text" class="form-control" value="{{ $rank->created_at }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ __('Updated At') }}</label>
+                                <input type="text" class="form-control" value="{{ $rank->updated_at }}" readonly>
+                            </div>
+                            <a href="{{ route('rank') }}" class="btn btn-primary">{{ __('Back') }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

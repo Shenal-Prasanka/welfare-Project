@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-bookmark-star-fill"></i>{{ __('Rank Details') }}</h1>
+                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-bookmark-star-fill"></i>{{ __(' Rank Details') }}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <!-- Empty right column for alignment -->
@@ -38,7 +38,7 @@
                                 </div><!-- /.col -->
                                 <div class="col-sm-6 text-right">
                                     <!-- Add Button -->
-                                    <a href="{{ route('rank.add') }}" class="btn btn-sm btn-primary">
+                                    <a href="{{ url('rank/add') }}" class="btn btn-sm btn-primary">
                                         <i class="bi bi-plus-circle"></i> {{ __('Add New Rank') }}
                                     </a>
                                 </div><!-- /.col -->
@@ -72,16 +72,11 @@
                                                     <td class="text-center">{{ $rank->updated_at }}</td>
                                                     <td class="text-center">
                                                         <!-- Edit Button -->
-                                                        <a href="" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                                        <a href="{{ route('rank.edit', $rank->id) }}"  class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
                                                         <!-- view Button -->
-                                                        <a href="" class="btn btn-sm btn-secondary"><i class="bi bi-eye-fill"></i></a>
+                                                        <a href="{{ route('rank.view', $rank->id) }}"  class="btn btn-sm btn-secondary"><i class="bi bi-eye-fill"></i></a>
                                                         <!-- Delete Button -->
-                                                        <form action="" method="POST" style="display:inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></button>
-                                                        </form>
-                                                    </td>
+                                                        <a href="{{ route('rank.delete', $rank->id) }}"  class="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                                 </tr>
                                             @endforeach
                                         </tbody>

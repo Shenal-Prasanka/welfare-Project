@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ranks', function (Blueprint $table) {
-             $table->id();
-            $table->string('rank')->unique(); // Rank column with unique constraint
-            $table->string('type'); 
+        Schema::create('regements', function (Blueprint $table) {
+            $table->id();
+            $table->string('regement')->unique(); // Regement column with unique constraint
             $table->boolean('active')->default(1); // Active column with default value 1 (1 = active, 0 = inactive)
+            $table->boolean('delete')->default(0);
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ranks');
+        Schema::dropIfExists('regement');
     }
 };

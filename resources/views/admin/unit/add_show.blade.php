@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-bookmark-star-fill"></i>{{ __(' Add New Rank') }}</h1>
+                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-buildings-fill"></i>{{ __(' Add New Unit') }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -20,20 +20,25 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <form method="POST" action="{{ route('rank.store') }}">
+                            <form method="POST" action="{{ route('unit.store') }}">
                                 @csrf
 
                                 <!-- Rank Field -->
                                 <div class="form-group">
-                                    <label for="rank">{{ __('Rank') }}</label>
-                                    <input type="text" name="rank" id="rank" class="form-control" value="" required>
+                                    <label for="unit">{{ __('Unit') }}</label>
+                                    <input type="text" name="unit" id="unit" class="form-control" value="" required>
                                 </div>
 
                                 <!-- Type Field -->
-                                <div class="form-group">
-                                    <label for="type">{{ __('Type') }}</label>
-                                    <input type="text" name="type" id="type" class="form-control" value="" required>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="regement_id">{{ __('Regement') }}</label>
+                                        <select name="regement_id" id="regement_id" class="form-control" required>
+                                            <option value="">{{ __('Select Regement') }}</option>
+                                            @foreach($regements as $regement)
+                                                <option value="{{ $regement->id }}">{{ $regement->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                                 <!-- Active Field -->
                                 <div class="form-group">
@@ -45,7 +50,7 @@
                                 </div>
 
                                 <!-- Submit Button -->
-                                <button type="submit" class="btn btn-primary">{{ __('Add Rank') }}</button>
+                                <button type="submit" class="btn btn-primary">{{ __('Add Unit') }}</button>
                             </form>
                         </div>
                     </div>

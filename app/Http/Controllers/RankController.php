@@ -22,7 +22,7 @@ class RankController extends Controller
     if ($active !== null) {
         $query->where('active', $active);
     }
-
+    $query = Rank::where('delete', 0);
     $ranks = $query->paginate(7);
 
     return view('admin.rank.rank_show', compact('ranks'));
@@ -54,18 +54,46 @@ class RankController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'rank' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'active' => 'required|boolean',
-        ]);
+    $validated = $request->validate([
+        'rank' => 'required|string|max:255',
+        'type' => 'required|string|max:255',
+        'active' => 'required|boolean',
+    ]);
 
-        Rank::create([
-            'rank' => $request->rank,
-            'type' => $request->type,
-            'active' => $request->active,
-        ]);
+    Rank::create($validated);
 
-        return redirect()->route('rank')->with('success', __('Rank added successfully!'));
+    return redirect()->route('rank')->with('success', 'Rank added successfully!');
     }
+
+    public function edit($id)
+{
+    $rank = Rank::findOrFail($id);
+    return view('admin.rank.edit_show', compact('rank'));
+}
+
+public function update(Request $request, $id)
+{
+    $validated = $request->validate([
+        'rank' => 'required|string|max:255',
+        'type' => 'required|string|max:255',
+        'active' => 'required|boolean',
+    ]);
+    $rank = Rank::findOrFail($id);
+    $rank->update($validated);
+    return redirect()->route('rank')->with('success', 'Rank updated successfully!');
+}
+
+public function view($id)
+{
+    $rank = Rank::findOrFail($id);
+    return view('admin.rank.view_show', compact('rank'));
+}
+public function delete($id)
+{
+    $rank = Rank::findOrFail($id);
+    $rank->delete = 1;
+    $rank->save();
+
+    return redirect()->route('rank')->with('success', 'Rank deleted successfully!');
+}
 }

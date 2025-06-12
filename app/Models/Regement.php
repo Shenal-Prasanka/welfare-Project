@@ -4,18 +4,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rank extends Model
+class Regement extends Model
 {
-    use HasFactory;
+     use HasFactory;
 
-    protected $table = 'ranks';
+    protected $table = 'regements';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'rank',
-        'type',
+        'regement',
         'active',
         'delete',
     ];
 
-   
+    public function units()
+{
+    return $this->hasMany(Unit::class, 'unit', 'id');
+}
+
 }

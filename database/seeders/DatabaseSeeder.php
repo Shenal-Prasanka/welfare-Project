@@ -18,61 +18,61 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'User',
-            'email' => 'user@example.com',
+            'email' => 'user@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '0',
         ]);
         User::factory()->create([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '1',
         ]);
         User::factory()->create([
-            'name' => 'unitclerk',
-            'email' => 'unitclerk@example.com',
+            'name' => 'Unitclerk',
+            'email' => 'unitclerk@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '2',
         ]);
         User::factory()->create([
-            'name' => 'unitoc',
-            'email' => 'unitoc@example.com',
+            'name' => 'Unitoc',
+            'email' => 'unitoc@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '3',
         ]);
         User::factory()->create([
-            'name' => 'shopcoordclerk',
-            'email' => 'shopcoordclerk@example.com',
+            'name' => 'Shopcoordclerk',
+            'email' => 'shopcoordclerk@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '4',
         ]);
         User::factory()->create([
-            'name' => 'shopcoordoc',
-            'email' => 'shopcoordoc@example.com',
+            'name' => 'Shopcoordoc',
+            'email' => 'shopcoordoc@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '5',
         ]);
         User::factory()->create([
-            'name' => 'welfareshopclerk',
-            'email' => 'welfareshopclerk@example.com',
+            'name' => 'Welfareshopclerk',
+            'email' => 'welfareshopclerk@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '6',
         ]);
         User::factory()->create([
-            'name' => 'welfareshopoc',
-            'email' => 'welfareshopoc@example.com',
+            'name' => 'Welfareshopoc',
+            'email' => 'welfareshopoc@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '7',
         ]);
         User::factory()->create([
-            'name' => 'ledgerclerk',
-            'email' => 'ledgerclerk@example.com',
+            'name' => 'Ledgerclerk',
+            'email' => 'ledgerclerk@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '8',
         ]);
         User::factory()->create([
-            'name' => 'ledgeroc',
-            'email' => 'ledgeroc@example.com',
+            'name' => 'Ledgeroc',
+            'email' => 'ledgeroc@gmail.com',
             'password' => Hash::make('123456789'),
             'role' => '9',
         ]);

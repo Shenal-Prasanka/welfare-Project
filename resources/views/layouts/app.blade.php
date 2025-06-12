@@ -61,16 +61,17 @@
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        
         <!-- Brand Logo -->
         <a href="/" class="brand-link">
-            <img src="{{ asset('/images/AdminLTELogo.jpg') }}"
+            <img src="{{ asset('/public/images/AdminLTELogo.jpg') }}"
                  class="brand-image img-circle elevation-3"
-                 style="opacity: .8">
-            <!--<span class="brand-text font-weight-light">Welfare-Shop</span>-->
+                 style="opacity: .8">Welfareshop
+            
         </a>
-
+         <div class="px-2 mt-2" style="margin-top:5px !important;">
         @include('layouts.navigation')
-       
+       </div>
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
@@ -90,9 +91,9 @@
     <!-- /.control-sidebar -->
 
     <!-- Main Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer bg-dark  text-center">
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2025 Derectorate of Information technology.</strong> All rights reserved.
     </footer>
 </div>
 <!-- ./wrapper -->

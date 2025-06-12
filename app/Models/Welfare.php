@@ -4,18 +4,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rank extends Model
+class Welfare extends Model
 {
     use HasFactory;
-
-    protected $table = 'ranks';
+    
+    protected $table = 'welfares';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'rank',
-        'type',
+        'name',
         'active',
         'delete',
     ];
-
-   
 }
