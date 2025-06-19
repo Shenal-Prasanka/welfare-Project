@@ -9,11 +9,19 @@ class UnitController extends Controller
 {
     //Dashboard show section
    public function show(Request $request)
-{
+{  
+     // Fetch all units with their regements
+    $units = Unit::with('regement')->get(); // eager load regement
+    $regements = Regement::with('units')->get(); // Fetch all regements
+
+    // Handle search and active filters
     $search = $request->input('search');
     $active = $request->input('active');
 
     $query = Unit::query();
+
+      // Exclude deleted records
+    $query->where('delete', 0);
 
     // Apply search filter
     if ($search) {
@@ -25,12 +33,10 @@ class UnitController extends Controller
         $query->where('active', $active);
     }
 
-    // Apply delete filter last
-    $query->where('delete', 0);
 
     $units = $query->paginate(7);
 
-    return view('admin.unit.unit_show', compact('units'));
+    return view('admin.unit.unit_show', compact('units','regements'));
 }
 
     //Active Deactive section
@@ -57,12 +63,12 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'unit' => 'required|string|max:255',
+            'unit' => 'required|string|unique:units,unit',
             'regement_id' => 'required|exists:regements,id',
             'active' => 'required|boolean',
         ]);
 
-        Unit::create($validated);
+        Unit::create($request->only('unit', 'active', 'regement_id'));
 
         return redirect()->route('unit')->with('success', 'Unit added successfully.');
     }
@@ -74,7 +80,7 @@ class UnitController extends Controller
     public function update(Request $request, $unitId)
     {
         $validated = $request->validate([
-            'unit' => 'required|string|max:255',
+            'unit' => 'required|string|max:255|unique:units,unit,' . $unitId,
             'active' => 'required|boolean',
         ]);
 
@@ -94,6 +100,6 @@ public function delete($id)
     $unit->delete = 1;
     $unit->save();
 
-    return redirect()->route('regement')->with('success', 'Regement deleted successfully!');
+    return redirect()->route('unit')->with('success', 'Regement deleted successfully!');
 }
 }

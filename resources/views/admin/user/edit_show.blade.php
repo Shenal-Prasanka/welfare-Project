@@ -21,31 +21,56 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
+
+                               {{-- Success Alert --}}
+                            @if(session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
                             <form method="POST" action="{{ route('user.update', $user->id) }}">
                                 @csrf
 
-                                <!-- Rank Field -->
+                                <!-- user Field -->
                                 <div class="form-group">
                                     <label for="rank">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->user) }}" required>
+                                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}">
+                                     @error('name')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @else
+                    
+                                    @enderror
                                 </div>
 
-                                <!-- Type Field -->
+                                <!-- email Field -->
                                 <div class="form-group">
                                     <label for="type">{{ __('Email') }}</label>
-                                    <input type="text" name="email" id="email" class="form-control" value="{{ old('email', $user->user) }}" required>
+                                    <input type="text" name="email" id="email" class="form-control" value="{{ old('email', $user->email) }}">
+                                     @error('email')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @else
+                    
+                                    @enderror
                                 </div>
 
                               <!-- Role Field -->
                                 <div class="form-group">
                                     <label for="type">{{ __('Role') }}</label>
-                                    <input type="text" name="role" id="role" class="form-control" value="{{ old('role', $user->user) }}" required>
+                                    <input type="text" name="role" id="role" class="form-control" value="{{ old('role', $user->role) }}">
+                                     @error('role')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @else
+                    
+                                    @enderror
                                 </div>
 
                                 <!-- Show Updated At (read-only) -->
                                 <div class="form-group">
                                     <label>{{ __('Last Updated At') }}</label>
-                                    <input type="text" class="form-control" value="{{ $user->updated_at }}">
+                                    <input type="text" class="form-control" 
+                                        value="{{ $user->updated_at->timezone('Asia/Colombo')->format('Y-m-d h:i:s A') }}" readonly>
                                 </div>
 
                                 <!-- Submit Button -->

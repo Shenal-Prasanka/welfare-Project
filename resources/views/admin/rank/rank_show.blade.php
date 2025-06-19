@@ -9,7 +9,13 @@
                     <h1 class="m-0 font-weight-semibold"><i class="bi bi-bookmark-star-fill"></i>{{ __(' Rank Details') }}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    <!-- Empty right column for alignment -->
+                      {{-- Success Alert --}}
+                            @if(session('success'))
+                                <div class="alert alert-success alert-dismissible fade show py-1 px-2" role="alert" style="font-size: 0.875rem;">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close btn-sm py-2 px-3" data-bs-dismiss="alert" aria-label="Close" style="filter: invert(1); font-size: 0.875rem;"></button>
+                                </div>
+                            @endif
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->

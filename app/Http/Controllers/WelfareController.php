@@ -6,27 +6,30 @@ use Illuminate\Http\Request;
 
 class WelfareController extends Controller
 {   //Dashboard show section
-    public function show(Request $request)
-    { $search = $request->input('search');
+  public function show(Request $request)
+{
+    $search = $request->input('search');
     $active = $request->input('active');
 
     $query = Welfare::query();
 
+    // Exclude deleted records
+    $query->where('delete', 0);
+
     // Apply search filter
-    if ($search) {
-        $query->where('name', 'LIKE', "%{$search}%");
-              
+    if (!empty($search)) {
+        $query->where('name', 'like', '%' . $search . '%');
     }
 
     // Apply active filter
-    if ($active !== null) {
+    if ($active !== null && $active !== '') {
         $query->where('active', $active);
     }
-    $query = Welfare::where('delete', 0);
+
     $welfares = $query->paginate(7);
 
     return view('admin.welfare.welfare_show', compact('welfares'));
-    }
+}
 
     //Active Deactive section
     public function active($welfareId)
@@ -53,12 +56,12 @@ class WelfareController extends Controller
 
     public function store(Request $request)
     {
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
+     $request->validate([
+        'name' => 'required|string|unique:welfares,name',
         'active' => 'required|boolean',
     ]);
 
-    Welfare::create($validated);
+    Welfare::create($request->only('name', 'active'));
 
     return redirect()->route('welfare')->with('success', 'welfareShop added successfully!');
     }
@@ -72,7 +75,7 @@ class WelfareController extends Controller
 public function update(Request $request, $id)
 {
     $validated = $request->validate([
-        'name' => 'required|string|max:255',
+        'name' => 'required|string|max:255|unique:welfares,name,' . $id,
         'active' => 'required|boolean',
     ]);
     $name = Welfare::findOrFail($id);

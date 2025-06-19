@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->id();
             $table->string('unit')->unique(); 
-            $table->foreignId('regement_id')->constrained('regements')->onDelete('cascade');
+            $table->unsignedBigInteger('regement_id')->nullable();
             $table->boolean('active')->default(1);
             $table->boolean('delete')->default(0);
             $table->timestamps();
@@ -26,6 +26,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unit');
+        Schema::table('units', function (Blueprint $table) {
+            $table->dropForeign(['regement_id']);
+            $table->dropColumn('regement_id');
+        });
     }
 };

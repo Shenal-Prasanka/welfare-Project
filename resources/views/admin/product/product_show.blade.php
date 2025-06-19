@@ -6,10 +6,10 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-bag-check-fill"></i>{{ __(' WelfareShops Details') }}</h1>
+                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-buildings-fill"></i>{{ __(' Product Details') }}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    {{-- Success Alert --}}
+                     {{-- Success Alert --}}
                             @if(session('success'))
                                 <div class="alert alert-success alert-dismissible fade show py-1 px-2" role="alert" style="font-size: 0.875rem;">
                                     {{ session('success') }}
@@ -32,7 +32,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <!-- Search Bar and Active Filter -->
-                                    <form method="GET" action="{{ route('welfare') }}" class="form-inline">
+                                    <form method="GET" action="{{ route('product') }}" class="form-inline">
                                         <input type="text" name="search" class="form-control form-control-sm" placeholder="{{ __('Search...') }}" value="{{ request('search') }}">
                                         <select name="active" class="form-control form-control-sm ml-2">
                                             <option value="">{{ __('All') }}</option>
@@ -44,8 +44,8 @@
                                 </div><!-- /.col -->
                                 <div class="col-sm-6 text-right">
                                     <!-- Add Button -->
-                                    <a href="{{ url('welfare/add') }}" class="btn btn-sm btn-primary">
-                                        <i class="bi bi-plus-circle"></i> {{ __('Add New WelfareShop') }}
+                                    <a href="{{ url('product/add') }}" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-plus-circle"></i> {{ __('Add New Product') }}
                                     </a>
                                 </div><!-- /.col -->
                             </div><!-- /.row -->
@@ -54,8 +54,10 @@
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">{{ __('Id') }}</th>
-                                                <th class="text-center">{{ __('name') }}</th>
+                                                <th class="text-center">{{ __('Product-Id') }}</th>
+                                                <th class="text-center">{{ __('Product') }}</th>
+                                                <th class="text-center">{{ __('Category') }}</th>
+                                                <th class="text-center">{{ __('Supplier') }}</th>  
                                                 <th class="text-center">{{ __('Active') }}</th>
                                                 <th class="text-center">{{ __('Created At') }}</th>
                                                 <th class="text-center">{{ __('Updated At') }}</th>
@@ -63,25 +65,26 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($welfares as $name)
+                                            @foreach($products as $product)
                                                 <tr>
-                                                    <td class="text-center">{{ $name->id }}</td>
-                                                    <td class="text-center">{{ $name->name }}</td>
+                                                    <td class="text-center">{{ $product->id }}</td>
+                                                    <td class="text-center">{{ $product->product }}</td>
+                                                    <td class="text-center">{{ $product->category->category }}</td>
+                                                    <td class="text-center">{{ $product->supply->supply }}</td>
                                                     <td class="text-center">
-                                                        <a href="welfare/{{ $name->id }}" class="badge badge-{{ $name->active ? 'success' : 'danger' }}">
-                                                        {{ $name->active ? __('Active') : __('Deactive') }}
+                                                        <a href="product/{{ $product->id }}" class="badge badge-{{ $product->active ? 'success' : 'danger' }}">
+                                                        {{ $product->active ? __('Active') : __('Deactive') }}
                                                         </a>
                                                     </td>
-                                                    <td class="text-center">{{ $name->created_at }}</td>
-                                                    <td class="text-center">{{ $name->updated_at }}</td>
+                                                    <td class="text-center">{{ $product->created_at }}</td>
+                                                    <td class="text-center">{{ $product->updated_at }}</td>
                                                     <td class="text-center">
                                                         <!-- Edit Button -->
-                                                        <a href="{{ route('welfare.edit', $name->id) }}"  class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                                        <a href="{{ route('product.edit', $product->id) }}"  class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
                                                         <!-- view Button -->
-                                                        <a href="{{ route('welfare.view', $name->id) }}"  class="btn btn-sm btn-secondary"><i class="bi bi-eye-fill"></i></a>
+                                                        <a href="{{ route('product.view', $product->id) }}"  class="btn btn-sm btn-secondary"><i class="bi bi-eye-fill"></i></a>
                                                         <!-- Delete Button -->
-                                                        <a href="{{ route('welfare.delete', $name->id) }}"  class="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
-                                                    </td>
+                                                        <a href="{{ route('product.delete', $product->id) }}"  class="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -89,7 +92,7 @@
                                 </div>
                                  <!-- Pagination Links -->
                             <div class="d-flex justify-content-left btn-xs">
-                                {{ $welfares->links() }}
+                                {{ $products->links() }}
                             </div>
                             </p>
                             

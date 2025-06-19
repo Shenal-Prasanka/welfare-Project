@@ -12,64 +12,127 @@
             <!-- Dashboard Menu -->
             <li class="nav-item">
                 <a href="{{ route('dashboard') }}" class="nav-link">
-                    <p class="text-white">
-                        <i class="nav-icon fas fa-th text-pink"></i> {{ __('Dashboard Menu') }}
-                    </p>
+                    <i class="nav-icon fas fa-th text-pink"></i>
+                    <p class="text-white">{{ __('Dashboard Menu') }}</p>
                 </a>
             </li>
 
-            <!-- User Management Section (Visible only for user with id=3) -->
+            <!-- Master Data Dropdown (Visible only for user with role=1) -->
             @if(Auth::user()->role == 1)
-                <li class="nav-item">
-                    <a href="{{ route('user') }}" class="nav-link">
-                        <i class="nav-icon fas fa-user text-green"></i>
-                        <p class="text-white">
-                            {{ __('User Management') }}
-                        </p>
-                    </a>
-                </li>
-
-
-                <!-- Rank Section -->
-                <li class="nav-item">
-                    <a href="{{ route('rank') }}" class="nav-link">
-                        <i class="nav-icon fas fa-bookmark text-yellow"></i>
-                        <p class="text-white">{{ __('Rank Management') }}</p>
-                    </a>
-                </li>
-            
-
-            <!-- Welfare Section -->
-            <li class="nav-item">
-                <a href="{{ route('welfare') }}" class="nav-link">
-                    <i class="nav-icon fas fa-home text-blue"></i>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-database text-blue"></i>
                     <p class="text-white">
-                        {{ __('Welfare Management') }}
+                        {{ __('Master Data') }}
+                        <i class="right fas fa-angle-left text-blue"></i>
                     </p>
                 </a>
-            </li>
-              <!-- Regement Section -->
-            <li class="nav-item">
-                <a href="{{ route('regement') }}" class="nav-link">
-                    <i class="nav-icon fas fa-star text-yellow"></i>
-                    <p class="text-white">
-                        {{ __('Regement Management') }}
-                    </p>
-                </a>
-            </li>
+                <ul class="nav nav-treeview" style="display: none;">
+                    <!-- User Management -->
+                    <li class="nav-item">
+                        <a href="{{ route('user') }}" class="nav-link">
+                           <i class="bi bi-person-workspace nav-icon text-success"></i>
+                            <p>{{ __('User Management') }}</p>
+                        </a>
+                    </li>
 
-             <!-- Unit Section -->
-            <li class="nav-item">
-                <a href="{{ route('unit') }}" class="nav-link">
-                    <i class="nav-icon fas fa-building text-red"></i>
-                    <p class="text-white">
-                        {{ __('Unit Management') }}
-                    </p>
-                </a>
+                    <!-- Rank Management -->
+                    <li class="nav-item">
+                        <a href="{{ route('rank') }}" class="nav-link">
+                            <i class="bi bi-bookmark-star-fill nav-icon text-yellow"></i>
+                            <p>{{ __('Rank Management') }}</p>
+                        </a>
+                    </li>
+                
+                    <!-- Welfare Management -->
+                    <li class="nav-item">
+                        <a href="{{ route('welfare') }}" class="nav-link">
+                            <i class="bi bi-bag-check-fill nav-icon text-blue"></i>
+                            <p>{{ __('Welfare Management') }}</p>
+                        </a>
+                    </li>
+
+                    <!-- Regement Management -->
+                    <li class="nav-item">
+                        <a href="{{ route('regement') }}" class="nav-link">
+                            <i class="bi bi-star-half nav-icon text-orange"></i>
+                            <p>{{ __('Regement Management') }}</p>
+                        </a>
+                    </li>
+
+                    <!-- Unit Management -->
+                    <li class="nav-item">
+                        <a href="{{ route('unit') }}" class="nav-link">
+                            <i class="bi bi-buildings-fill nav-icon text-red"></i>
+                            <p>{{ __('Unit Management') }}</p>
+                        </a>
+                    </li>
+                    
+                     <!-- Category Management -->
+                    <li class="nav-item">
+                        <a href="{{ route('category') }}" class="nav-link">
+                            <i class="bi bi-tag-fill nav-icon text-success"></i>
+                            <p>{{ __('Category Management') }}</p>
+                        </a>
+                    </li>
+
+                     <!-- Supply Management -->
+                    <li class="nav-item">
+                        <a href="{{ route('supply') }}" class="nav-link">
+                            <i class="bi bi-truck nav-icon text-blue"></i>
+                            <p>{{ __('Supply Management') }}</p>
+                        </a>
+                    </li>
+
+                     <!-- Item Management -->
+                    <li class="nav-item">
+                        <a href="{{ route('item') }}" class="nav-link">
+                            <i class="bi bi-backpack nav-icon text-yellow"></i>
+                            <p>{{ __('Item Management') }}</p>
+                        </a>
+                    </li>
+                    
+                     <!-- Product Management -->
+                    <li class="nav-item">
+                        <a href="{{ route('product') }}" class="nav-link">
+                            <i class="bi bi-pc-display-horizontal nav-icon text-red"></i>
+                            <p>{{ __('Product Management') }}</p>
+                        </a>
+                    </li>
+
+                </ul>
             </li>
-        @endif
+            @endif
         </ul>
     </nav>
-    <!-- Sidebar Menu -->
 </div>
 <!-- /.sidebar -->
+
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Bootstrap 4 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- AdminLTE App -->
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- AdminLTE CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+
+<!-- Initialize sidebar -->
+<script>
+$(document).ready(function() {
+    // Initialize the sidebar treeview
+    $('[data-widget="treeview"]').Treeview('init');
+    
+     //Alternatively, you can use this if the above doesn't work
+     $('[data-widget="treeview"]').each(function() {
+         $(this).treeview();
+     });
+});
+</script>

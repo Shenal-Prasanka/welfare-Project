@@ -26,27 +26,59 @@
                                 <!-- Rank Field -->
                                 <div class="form-group">
                                     <label for="unit">{{ __('Unit') }}</label>
-                                    <input type="text" name="unit" id="unit" class="form-control" value="" required>
+                                    <input type="text" name="unit" id="unit" class="form-control" value="">
+                                    @error('unit')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
-                                <!-- Type Field -->
+                                <!-- regement Field -->
                                     <div class="form-group">
                                         <label for="regement_id">{{ __('Regement') }}</label>
-                                        <select name="regement_id" id="regement_id" class="form-control" required>
+                                        <select name="regement_id" id="regement_id" class="form-control">
                                             <option value="">{{ __('Select Regement') }}</option>
-                                            @foreach($regements as $regement)
-                                                <option value="{{ $regement->id }}">{{ $regement->name }}</option>
-                                            @endforeach
+                                            <option value="1">Sri Lanka Armoured Corps</option>
+                                            <option value="2">Sri Lanka Artillery</option>
+                                            <option value="3">Sri Lanka Engineers</option>
+                                            <option value="4">Sri Lanka Signals Corps</option>
+                                            <option value="5">Sri Lanka Light Infantry</option>
+                                            <option value="6">Sri Lanka Sinha Regiment</option>
+                                            <option value="7">Gemunu Watch</option>
+                                            <option value="8">Gajaba Regiment</option>
+                                            <option value="9">Vijayabahu Infantry Regiment</option>
+                                            <option value="10">Mechanized Infantry Regiment</option>
+                                            <option value="11">Commando Regiment</option>
+                                            <option value="12">Special Forces Regiment</option>
+                                            <option value="13">Military Intelligence Corps</option>
+                                            <option value="14">Engineer Services Regiment</option>
+                                            <option value="15">Sri Lanka Army Service Corps</option>
+                                            <option value="16">Sri Lanka Army Medical Corps</option>
+                                            <option value="17">Sri Lanka Army Ordnance Corps</option>
+                                            <option value="18">Sri Lanka Electrical and Mechanical Engineers</option>
+                                            <option value="19">Sri Lanka Corps of Military Police</option>
+                                            <option value="20">Sri Lanka Army General Service Corps</option>
+                                            <option value="21">Sri Lanka Army Women's Corps</option>
+                                            <option value="22">Sri Lanka Army Corps of Agriculture and Livestock</option>
+                                            <option value="23">Sri Lanka Rifle Corps</option>
+                                            <option value="24">Sri Lanka Army Pioneer Corps</option>
+                                            <option value="25">Sri Lanka National Guard</option>
                                         </select>
+                                        @error('regement_id')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                     </div>
-
                                 <!-- Active Field -->
                                 <div class="form-group">
-                                    <label for="active">{{ __('Status') }}</label>
-                                    <select name="active" id="active" class="form-control">
-                                        <option value="1">{{ __('Active') }}</option>
-                                        <option value="0">{{ __('Deactive') }}</option>
-                                    </select>
+                                     <label for="active" class="form-label">{{ __('Status') }}</label>
+                                <select name="active" id="active"
+                                    class="form-select @error('active') is-invalid @enderror">
+                                    <option disabled {{ old('active') === null ? 'selected' : '' }}>{{ __('Choose...') }}</option>
+                                    <option value="1" {{ old('active') == '1' ? 'selected' : '' }}>{{ __('Active') }}</option>
+                                    <option value="0" {{ old('active') == '0' ? 'selected' : '' }}>{{ __('Deactive') }}</option>
+                                </select>
+                                @error('active')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
                                 </div>
 
                                 <!-- Submit Button -->

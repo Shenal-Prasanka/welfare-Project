@@ -98,7 +98,7 @@
                                         <p>Total units</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="bi bi-star-fill  text-white"></i>
+                                        <i class="bi bi-buildings-fill  text-white"></i>
                                     </div>
                                     <a href="{{ url('unit') }}" class="small-box-footer">
                                         More info <i class="fas fa-arrow-circle-right"></i>

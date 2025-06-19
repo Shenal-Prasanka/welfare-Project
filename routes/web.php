@@ -7,6 +7,10 @@ use App\Http\Controllers\RankController;
 use App\Http\Controllers\RegementController;
 use App\Http\Controllers\WelfareController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\SupplyController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,10 +22,6 @@ Route::get('/', function () {
 });
 
 
-// Define the home route
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
 
 
 // Define the about route
@@ -95,6 +95,8 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show')
 
 // Define the users.index route
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/apply', [UserController::class, 'apply'])->name('users.apply');
+
 
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -162,4 +164,53 @@ Route::group(['middleware'=>'admin'],function(){
     Route::post('unit/{id}/edit', [UnitController::class, 'update'])->name('unit.update'); // Update
     Route::get('unit/{id}/view', [UnitController::class, 'view'])->name('unit.view'); // View
     Route::get('unit/{id}/delete', [UnitController::class, 'delete'])->name('unit.delete'); // Delete
+});
+
+
+//Define supply  Route
+    Route::group(['middleware'=>'admin'],function(){
+    Route::get('supply', [SupplyController::class, 'show'])->name('supply');
+    Route::get('supply/add', [SupplyController::class, 'add'])->name('supplyadd');
+    Route::post('supply/add', [SupplyController::class, 'store'])->name('supply.store');
+    Route::get('supply/{id}', [SupplyController::class, 'active'])->name('supply.id');
+    Route::get('supply/{id}/edit', [SupplyController::class, 'edit'])->name('supply.edit'); // Edit
+    Route::post('supply/{id}/edit', [SupplyController::class, 'update'])->name('supply.update'); // Update
+    Route::get('supply/{id}/view', [SupplyController::class, 'view'])->name('supply.view'); // View
+    Route::get('supply/{id}/delete', [SupplyController::class, 'delete'])->name('supply.delete'); // Delete
+});
+
+//Define Category  Route
+    Route::group(['middleware'=>'admin'],function(){
+    Route::get('category', [CategoryController::class, 'show'])->name('category');
+    Route::get('category/add', [CategoryController::class, 'add'])->name('categoryadd');
+    Route::post('category/add', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('category/{id}', [CategoryController::class, 'active'])->name('category.id');
+    Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit'); // Edit
+    Route::post('category/{id}/edit', [CategoryController::class, 'update'])->name('category.update'); // Update
+    Route::get('category/{id}/view', [CategoryController::class, 'view'])->name('category.view'); // View
+    Route::get('category/{id}/delete', [CategoryController::class, 'delete'])->name('category.delete'); // Delete
+});
+
+//Define product  Route
+    Route::group(['middleware'=>'admin'],function(){
+    Route::get('product', [ProductController::class, 'show'])->name('product');
+    Route::get('product/add', [ProductController::class, 'add'])->name('productadd');
+    Route::post('product/add', [ProductController::class, 'store'])->name('product.store');
+    Route::get('product/{id}', [ProductController::class, 'active'])->name('product.id');
+    Route::get('product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit'); // Edit
+    Route::post('product/{id}/edit', [ProductController::class, 'update'])->name('product.update'); // Update
+    Route::get('product/{id}/view', [ProductController::class, 'view'])->name('product.view'); // View
+    Route::get('product/{id}/delete', [ProductController::class, 'delete'])->name('product.delete'); // Delete
+});
+
+//Define item  Route
+    Route::group(['middleware'=>'admin'],function(){
+    Route::get('item', [ItemController::class, 'show'])->name('item');
+    Route::get('item/add', [ItemController::class, 'add'])->name('itemadd');
+    Route::post('item/add', [ItemController::class, 'store'])->name('item.store');
+    Route::get('item/{id}', [ItemController::class, 'active'])->name('item.id');
+    Route::get('item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit'); // Edit
+    Route::post('item/{id}/edit', [ItemController::class, 'update'])->name('item.update'); // Update
+    Route::get('item/{id}/view', [ItemController::class, 'view'])->name('item.view'); // View
+    Route::get('item/{id}/delete', [ItemController::class, 'delete'])->name('item.delete'); // Delete
 });

@@ -3,13 +3,13 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Unit;
 
 class Regement extends Model
 {
      use HasFactory;
 
-    protected $table = 'regements';
-    protected $primaryKey = 'id';
+
     protected $fillable = [
         'regement',
         'active',
@@ -18,7 +18,7 @@ class Regement extends Model
 
     public function units()
 {
-    return $this->hasMany(Unit::class, 'unit', 'id');
+    return $this->hasMany(Unit::class, 'regement_id');
 }
 
 }

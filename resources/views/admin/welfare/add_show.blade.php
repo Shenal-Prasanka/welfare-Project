@@ -27,16 +27,24 @@
                                 <!-- Name Field -->
                                 <div class="form-group">
                                     <label for="rank">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="name" class="form-control" value="" required>
+                                    <input type="text" name="name" id="name" class="form-control" value="">
+                                    @error('name')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <!-- Active Field -->
                                 <div class="form-group">
-                                    <label for="active">{{ __('Status') }}</label>
-                                    <select name="active" id="active" class="form-control">
-                                        <option value="1">{{ __('Active') }}</option>
-                                        <option value="0">{{ __('Deactive') }}</option>
-                                    </select>
+                                     <label for="active" class="form-label">{{ __('Status') }}</label>
+                                <select name="active" id="active"
+                                    class="form-select @error('active') is-invalid @enderror">
+                                    <option disabled {{ old('active') === null ? 'selected' : '' }}>{{ __('Choose...') }}</option>
+                                    <option value="1" {{ old('active') == '1' ? 'selected' : '' }}>{{ __('Active') }}</option>
+                                    <option value="0" {{ old('active') == '0' ? 'selected' : '' }}>{{ __('Deactive') }}</option>
+                                </select>
+                                @error('active')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
                                 </div>
 
                                 <!-- Submit Button -->

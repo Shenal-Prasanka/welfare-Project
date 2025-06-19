@@ -33,14 +33,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
     $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email',
-        'role' => 'required|string|max:255',
+        'name' => 'required|string|max:255|unique:users,name',
+        'email' => ['required', 'email', 'regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/i'],
+        'role' => 'required|in:0,1,2,3,4,5,6,7,8,9',
         'password' => 'required|string|min:6',
         
     ]);
     $validated['password'] = bcrypt($validated['password']);
-    $user = User::create($validated); // assign to $user
+    
+    $user = User::create($request->only('name', 'email', 'role', 'password'));
+
 
     $user->remember_token = Str::random(60);
     $user->email_verified_at = now();
@@ -57,17 +59,21 @@ class UserController extends Controller
 
 public function update(Request $request, $id)
 {
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,'.$id,
-        'role' => 'required|string|max:255',
-        
-    ]);
+    // Fetch the user first
     $user = User::findOrFail($id);
-    $user->update($validated);
-    return redirect()->route('user')->with('success', 'Welfare updated successfully!');
-}
 
+    // Validation rules
+    $validated = $request->validate([
+        'name' => 'required|string|max:255|unique:users,name,' . $user->id,
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'role' => 'required|string|max:255',
+    ]);
+
+    // Update user
+    $user->update($validated);
+
+    return redirect()->route('user')->with('success', 'User updated successfully!');
+}
 public function view($id)
 {
     $user = User::findOrFail($id);
@@ -80,5 +86,9 @@ public function delete($id)
     $user->save();
 
     return redirect()->route('user')->with('success', 'User deleted successfully!');
+}
+public function apply()
+{
+  return view('user.request'); 
 }
 }

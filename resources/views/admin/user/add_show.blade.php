@@ -23,29 +23,46 @@
                             <form method="POST" action="{{ route('user.store') }}">
                                 @csrf
 
-                                <!-- Rank Field -->
+                               <!-- Name Field -->
                                 <div class="form-group">
-                                    <label for="rank">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="name" class="form-control" value="" required>
+                                    <label for="name">{{ __('Name') }}</label>
+                                    <input type="text" name="name" id="name" class="form-select @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
+                                    @error('name')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
-                                <!-- Type Field -->
+                               <!-- Email Field -->
+                                    <div class="form-group">
+                                        <label for="email">{{ __('Email') }}</label>
+                                        <input type="text" name="email" id="email" class="form-select @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
+                                        @error('email')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                <!-- Role Field (Dropdown: 0=Admin, 1–9 as numbers) -->
                                 <div class="form-group">
-                                    <label for="type">{{ __('Email') }}</label>
-                                    <input type="text" name="email" id="email" class="form-control" value="" required>
+                                    <label for="role">{{ __('Role') }}</label>
+                                    <select name="role" id="role" class="form-select @error('role') is-invalid @enderror" required>
+                                        <option value="">-- Select Role --</option>
+                                        @for ($i = 0; $i <= 9; $i++)
+                                            <option value="{{ $i }}" {{ old('role') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                    @error('role')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
-                                  <!-- Role Field -->
+                                <!-- Password Field -->
                                 <div class="form-group">
-                                    <label for="type">{{ __('Role') }}</label>
-                                    <input type="text" name="role" id="role" class="form-control" value="" required>
+                                    <label for="password">{{ __('Password') }}</label>
+                                    <input type="password" name="password" id="password" class="form-select @error('password') is-invalid @enderror" required>
+                                    @error('password')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
-                                 <div class="form-group">
-                                     <label for="password">{{ __('Password') }}</label>
-                                     <input type="password" name="password" id="password" class="form-control" required>
-                                </div>
-
                                 <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">{{ __('Add User') }}</button>
                             </form>

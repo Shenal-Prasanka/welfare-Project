@@ -9,7 +9,13 @@
                     <h1 class="m-0 font-weight-semibold"><i class="bi bi-buildings-fill"></i>{{ __(' Unit Details') }}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    <!-- Empty right column for alignment -->
+                     {{-- Success Alert --}}
+                            @if(session('success'))
+                                <div class="alert alert-success alert-dismissible fade show py-1 px-2" role="alert" style="font-size: 0.875rem;">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close btn-sm py-2 px-3" data-bs-dismiss="alert" aria-label="Close" style="filter: invert(1); font-size: 0.875rem;"></button>
+                                </div>
+                            @endif
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -50,7 +56,7 @@
                                             <tr>
                                                 <th class="text-center">{{ __('Unit-Id') }}</th>
                                                 <th class="text-center">{{ __('Unit') }}</th>
-                                                <th class="text-center">{{ __('Regement-Id') }}</th> 
+                                                <th class="text-center">{{ __('Regement') }}</th> 
                                                 <th class="text-center">{{ __('Active') }}</th>
                                                 <th class="text-center">{{ __('Created At') }}</th>
                                                 <th class="text-center">{{ __('Updated At') }}</th>
@@ -62,7 +68,7 @@
                                                 <tr>
                                                     <td class="text-center">{{ $unit->id }}</td>
                                                     <td class="text-center">{{ $unit->unit }}</td>
-                                                    <td class="text-center">{{ $unit->regement_id }}</td>
+                                                    <td class="text-center">{{ $unit->regement->regement }}</td>
                                                     <td class="text-center">
                                                         <a href="unit/{{ $unit->id }}" class="badge badge-{{ $unit->active ? 'success' : 'danger' }}">
                                                         {{ $unit->active ? __('Active') : __('Deactive') }}

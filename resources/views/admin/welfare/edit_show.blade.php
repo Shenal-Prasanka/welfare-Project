@@ -21,25 +21,46 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
+
+                            {{-- Success Alert --}}
+                            @if(session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
                             <form method="POST" action="{{ route('welfare.update', $name->id) }}">
                                 @csrf
 
                                 <!-- Rank Field -->
                                 <div class="form-group">
                                     <label for="rank">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $name->name) }}" required>
+                                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $name->name) }}" >
+                                     @error('name')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
 
-                                <!-- Active Field -->
+                                 <!-- Active Field -->
                                 <div class="form-group">
                                     <label for="active">{{ __('Status') }}</label>
                                     <select name="active" id="active" class="form-control">
                                         <option value="1" {{ $name->active ? 'selected' : '' }}>{{ __('Active') }}</option>
                                         <option value="0" {{ !$name->active ? 'selected' : '' }}>{{ __('Deactive') }}</option>
                                     </select>
+                                     @error('active')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
+                                <!-- Show Updated At (read-only) -->
+                                <div class="form-group">
+                                    <label>{{ __('Last Updated At') }}</label>
+                                    <input type="text" class="form-control" 
+                                        value="{{ $name->updated_at->timezone('Asia/Colombo')->format('Y-m-d h:i:s A') }}" readonly>
+                                </div>
 
                                 <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">{{ __('Update WelfareShop') }}</button>

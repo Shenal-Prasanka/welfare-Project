@@ -8,26 +8,26 @@ class RegementController extends Controller
 {
     //Dashboard show section
     public function show(Request $request)
-    {    $search = $request->input('search');
-         $active = $request->input('active');
+{
+    $search = $request->input('search');
+    $active = $request->input('active');
 
-        $query = Regement::query();
+    $query = Regement::where('delete', 0); // Start with delete filter
 
     // Apply search filter
     if ($search) {
         $query->where('regement', 'LIKE', "%{$search}%");
-              
     }
 
     // Apply active filter
-    if ($active !== null) {
+    if ($active !== null && $active !== '') {
         $query->where('active', $active);
     }
-    $query = Regement::where('delete', 0);
+
     $regements = $query->paginate(7);
 
     return view('admin.regement.regement_show', compact('regements'));
-    }
+}
 
     //Active Deactive section
     public function active($regementId)
@@ -55,12 +55,12 @@ class RegementController extends Controller
 
     public function store(Request $request)
     {
-    $validated = $request->validate([
-        'regement' => 'required|string|max:255',
+     $request->validate([
+        'regement' => 'required|string|unique:regements,regement',
         'active' => 'required|boolean',
     ]);
 
-    Regement::create($validated);
+    Regement::create($request->only('regement', 'active'));
 
     return redirect()->route('regement')->with('success', 'Regement added successfully!');
     }
@@ -74,12 +74,12 @@ class RegementController extends Controller
 public function update(Request $request, $id)
 {
     $validated = $request->validate([
-        'regement' => 'required|string|max:255',
+        'regement' => 'required|string|max:255|unique:regements,regement,' . $id,
         'active' => 'required|boolean',
     ]);
         $regement = Regement::findOrFail($id);
         $regement->update($validated);
-    return redirect()->route('regement')->with('success', 'Regement updated successfully!');
+    return redirect()->route('regement',$id)->with('success', 'Regement updated successfully!');
 }
 
 public function view($id)

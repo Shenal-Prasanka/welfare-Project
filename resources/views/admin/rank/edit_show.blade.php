@@ -1,4 +1,3 @@
-{{-- filepath: resources/views/admin/rank/edit_show.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
@@ -21,19 +20,72 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
+
+                            {{-- Success Alert --}}
+                            @if(session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                           
+
                             <form method="POST" action="{{ route('rank.update', $rank->id) }}">
                                 @csrf
 
-                                <!-- Rank Field -->
-                                <div class="form-group">
-                                    <label for="rank">{{ __('Rank') }}</label>
-                                    <input type="text" name="rank" id="rank" class="form-control" value="{{ old('rank', $rank->rank) }}" required>
-                                </div>
+                               <!-- Rank Field -->
+                                    <div class="form-group mb-3">
+                                        <label for="rank">{{ __('Rank') }}</label>
+                                        <select name="rank" id="rank" class="form-control @error('rank') is-invalid @enderror" required>
+                                            <option value="" disabled {{ old('rank', $rank->rank ?? '') == '' ? 'selected' : '' }}>-- Select Rank --</option>
 
+                                            <!-- Commissioned Officers -->
+                                            @php
+                                                $commissioned = [
+                                                    'Field Marshal', 'General', 'Lieutenant General', 'Major General', 'Brigadier',
+                                                    'Colonel', 'Lieutenant Colonel', 'Major', 'Captain', 'Lieutenant', '2nd Lieutenant'
+                                                ];
+                                                $warrantOfficers = [
+                                                    'Warrant Officer Class1', 'Warrant Officer Class11', 'Staff Sergeant', 'Sergeant',
+                                                    'Corporal', 'Lance Corporal', 'Private'
+                                                ];
+                                            @endphp
+
+                                            <optgroup label="Commissioned Officers">
+                                                @foreach($commissioned as $rankOption)
+                                                    <option value="{{ $rankOption }}" {{ old('rank', $rank->rank ?? '') == $rankOption ? 'selected' : '' }}>
+                                                        {{ $rankOption }}
+                                                    </option>
+                                                @endforeach
+                                            </optgroup>
+
+                                            <optgroup label="Warrant Officers and Others">
+                                                @foreach($warrantOfficers as $rankOption)
+                                                    <option value="{{ $rankOption }}" {{ old('rank', $rank->rank ?? '') == $rankOption ? 'selected' : '' }}>
+                                                        {{ $rankOption }}
+                                                    </option>
+                                                @endforeach
+                                            </optgroup>
+                                        </select>
+
+                                        @error('rank')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @else
+                                            <div class="invalid-feedback">Please select a valid rank.</div>
+                                        @enderror
+                                    </div>
                                 <!-- Type Field -->
                                 <div class="form-group">
                                     <label for="type">{{ __('Type') }}</label>
-                                    <input type="text" name="type" id="type" class="form-control" value="{{ old('type', $rank->type) }}" required>
+                                    <select name="type" id="type" class="form-control" required>
+                                        <option value="COMMISSIONED OFFICERS" {{ old('type', $rank->type) == 'COMMISSIONED OFFICERS' ? 'selected' : '' }}>
+                                            COMMISSIONED OFFICERS
+                                        </option>
+                                        <option value="WARRANT OFFICERS" {{ old('type', $rank->type) == 'WARRANT OFFICERS' ? 'selected' : '' }}>
+                                            WARRANT OFFICERS
+                                        </option>
+                                    </select>
                                 </div>
 
                                 <!-- Active Field -->
@@ -48,7 +100,8 @@
                                 <!-- Show Updated At (read-only) -->
                                 <div class="form-group">
                                     <label>{{ __('Last Updated At') }}</label>
-                                    <input type="text" class="form-control" value="{{ $rank->updated_at }}">
+                                    <input type="text" class="form-control" 
+                                        value="{{ $rank->updated_at->timezone('Asia/Colombo')->format('Y-m-d h:i:s A') }}" readonly>
                                 </div>
 
                                 <!-- Submit Button -->
