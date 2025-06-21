@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-bag-check-fill"></i>{{ __(' Add New WelfareShop') }}</h1>
+                    <h1 class="m-0 font-weight-bold"><i class="bi bi-bag-check-fill"></i>{{ __(' Add New WelfareShop') }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -27,7 +27,8 @@
                                 <!-- Name Field -->
                                 <div class="form-group">
                                     <label for="rank">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="name" class="form-control" value="">
+                                    <input type="text" name="name" id="name" class="form-control  @error('name') is-invalid @enderror" placeholder="{{ __('Enter Welfareshop Name') }}"
+                                        value="{{ old('name') }}">
                                     @error('name')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
@@ -38,7 +39,7 @@
                                      <label for="active" class="form-label">{{ __('Status') }}</label>
                                 <select name="active" id="active"
                                     class="form-select @error('active') is-invalid @enderror">
-                                    <option disabled {{ old('active') === null ? 'selected' : '' }}>{{ __('Choose...') }}</option>
+                                    <option disabled {{ old('active') === null ? 'selected' : '' }}>{{ __('Choose Status') }}</option>
                                     <option value="1" {{ old('active') == '1' ? 'selected' : '' }}>{{ __('Active') }}</option>
                                     <option value="0" {{ old('active') == '0' ? 'selected' : '' }}>{{ __('Deactive') }}</option>
                                 </select>
@@ -49,6 +50,7 @@
 
                                 <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">{{ __('Add Welfareshop') }}</button>
+                                <a href="{{ route('welfare') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                             </form>
                         </div>
                     </div>

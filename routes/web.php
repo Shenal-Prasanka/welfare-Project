@@ -136,6 +136,7 @@ Route::group(['middleware'=>'admin'],function(){
     Route::get('user', [UserController::class, 'show'])->name('user');
     Route::get('user/add', [UserController::class, 'add'])->name('useradd');
     Route::post('user/add', [UserController::class, 'store'])->name('user.store');
+    Route::get('user/{userId}/active', [UserController::class, 'active'])->name('user.active');
     Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('user.edit'); // Edit
     Route::post('user/{id}/edit', [UserController::class, 'update'])->name('user.update'); // Update
     Route::get('user/{id}/view', [UserController::class, 'view'])->name('user.view'); // View

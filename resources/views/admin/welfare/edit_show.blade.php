@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-bag-check-fill"></i>{{ __(' Edit WelfareShop') }}</h1>
+                    <h1 class="m-0 font-weight-bold"><i class="bi bi-bag-check-fill"></i>{{ __(' Edit WelfareShop') }}</h1>
                 </div>
             </div>
         </div>
@@ -64,6 +64,7 @@
 
                                 <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">{{ __('Update WelfareShop') }}</button>
+                                <a href="{{ route('welfare') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                             </form>
                         </div>
                     </div>

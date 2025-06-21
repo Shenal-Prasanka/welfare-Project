@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-bookmark-star-fill"></i>{{ __(' Edit Rank') }}</h1>
+                    <h1 class="m-0 font-weight-bold"><i class="bi bi-bookmark-star-fill"></i>{{ __(' Edit Rank') }}</h1>
                 </div>
             </div>
         </div>
@@ -106,6 +106,7 @@
 
                                 <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">{{ __('Update Rank') }}</button>
+                                 <a href="{{ route('rank') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                             </form>
                         </div>
                     </div>

@@ -19,28 +19,7 @@ class ProductController extends Controller
     $products = Product::with('category')->get(); // eager load category
     $categorys = Category::with('product')->get(); // Fetch all category
 
-    // Handle search and active filters
-    $search = $request->input('search');
-    $active = $request->input('active');
-
-    $query = Product::query();
-
-      // Exclude deleted records
-    $query->where('delete', 0);
-
-    // Apply search filter
-    if ($search) {
-        $query->where('product', 'LIKE', "%{$search}%");
-    }
-
-    // Apply active filter
-    if ($active !== null && $active !== '') {
-        $query->where('active', $active);
-    }
-
-
-    $products = $query->paginate(7);
-
+    $products = Product::where('delete', 0)->get(); // Return all non-deleted records
     return view('admin.product.product_show', compact('products','supplys','categorys'));
 }
 
@@ -69,26 +48,34 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'product' => 'required|string|unique:products,product',
+            'product' => 'required|string',
+            'brand' => 'required|string',
+            'model' => 'required|string',
             'supply_id' => 'required|exists:supplys,id',
             'category_id' => 'required|exists:categories,id',
             'active' => 'required|boolean',
         ]);
 
-        Product::create($request->only('product', 'active', 'supply_id', 'category_id'));
+        Product::create($request->only('product','brand','model', 'active', 'supply_id', 'category_id'));
 
         return redirect()->route('product')->with('success', 'Product added successfully.');
     }
     public function edit($productId)
     {
         $product = Product::findOrFail($productId);
-        return view('admin.product.edit_show', compact('product'));
+        $supplys = Supply::all();
+        $categorys = Category::all();
+        return view('admin.product.edit_show', compact('product', 'supplys', 'categorys'));
     }
     public function update(Request $request, $productId)
     {
         $validated = $request->validate([
-            'product' => 'required|string|max:255|unique:products,product,' . $productId,
+            'product' => 'required|string',
             'active' => 'required|boolean',
+            'brand' => 'required|string',
+            'model' => 'required|string',
+            'supply_id' => 'required|exists:supplys,id',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $product = Product::findOrFail($productId);

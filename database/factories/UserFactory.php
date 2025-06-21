@@ -23,13 +23,22 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        return [
+       return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'mobile' => fake()->unique()->phoneNumber(),
+            'address' => fake()->address(),
+            'employee_no' => fake()->unique(),
+            'regement_no' => fake()->unique(),
+            'regement_id' => fake()->numberBetween(1, 40),
+            'unit_id' => fake()->numberBetween(1, 40),
+            'rank_id' => fake()->numberBetween(1, 40),
             'email_verified_at' => now(),
+            'role' => fake()->numberBetween(1, 3), // assuming roles like 1 = admin, 2 = clerk, etc.
+            'active' => fake()->boolean(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-        ];
+];
     }
 
     /**

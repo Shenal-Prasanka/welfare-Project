@@ -11,29 +11,7 @@ class RankController extends Controller
     // Dashboard show section
     public function show(Request $request)
     {
-        $search = $request->input('search');
-        $active = $request->input('active');
-
-        $query = Rank::query();
-
-        // Apply delete filter
-        $query->where('delete', 0);
-
-        // Apply search filter
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('rank', 'LIKE', "%{$search}%")
-                  ->orWhere('type', 'LIKE', "%{$search}%");
-            });
-        }
-
-        // Apply active filter
-        if ($active !== null && $active !== '') {
-            $query->where('active', $active);
-        }
-
-        $ranks = $query->paginate(7);
-
+        $ranks = Rank::where('delete', 0)->get(); // Return all non-deleted records
         return view('admin.rank.rank_show', compact('ranks'));
     }
 

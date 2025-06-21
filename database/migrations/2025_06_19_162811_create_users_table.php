@@ -13,10 +13,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('email')->unique();
+            $table->string('mobile')->unique();
+            $table->string('address');
+            $table->string('employee_no')->unique();
+            $table->string('regement_no')->unique();
+            $table->unsignedBigInteger('regement_id');
+            $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('rank_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->unsignedTinyInteger('role')->default(0);
+            $table->boolean('active')->default(1); 
             $table->boolean('delete')->default(0); 
             $table->string('password');
             $table->rememberToken();
@@ -49,6 +57,12 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('role');
+            $table->dropForeign(['regement_id']);
+            $table->dropColumn('regement_id');
+            $table->dropForeign(['unit_id']);
+            $table->dropColumn('unit_id');
+            $table->dropForeign(['rank_id']);
+            $table->dropColumn('rank_id');
         });
     }
 };

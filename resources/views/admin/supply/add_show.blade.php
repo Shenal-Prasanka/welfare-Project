@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-star-fill"></i>{{ __(' Add New Supplier') }}</h1>
+                    <h1 class="m-0 font-weight-bold"><i class="bi bi-truck"></i>{{ __('  Add New Supplier') }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -59,7 +59,7 @@
                             <!-- Description Field -->
                                 <div class="col-md-12 mt-3">
                                     <label for="description">{{ __('Description') }}</label>
-                                    <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" rows="3"></textarea>
+                                    <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" rows="3" placeholder="Add Your Description"></textarea>
                                     @error('description')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
@@ -69,6 +69,7 @@
                                 <!-- Submit Button -->
                                 <div class="col-md-12 mt-3">
                                 <button type="submit" class="btn btn-primary">{{ __('Add Supplier') }}</button>
+                                <a href="{{ route('supply') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                                 </div>
                             </form>
                         </div>

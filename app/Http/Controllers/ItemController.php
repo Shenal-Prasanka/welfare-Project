@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Product;
+use App\Models\Welfare;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -14,29 +15,15 @@ class ItemController extends Controller
     $items = Item::with('product')->get(); // eager load products
     $products = Product::with('items')->get(); // Fetch all products
 
-    // Handle search and active filters
-    $search = $request->input('search');
-    $active = $request->input('active');
+     // Fetch all units with their welfares
+    $items = Item::with('welfare')->get(); // eager load welfaress
+    $welfares = Welfare::with('items')->get(); // Fetch all welfaress
 
-    $query = Item::query();
-
-      // Exclude deleted records
-    $query->where('delete', 0);
-
-    // Apply search filter
-    if ($search) {
-        $query->where('item', 'LIKE', "%{$search}%");
-    }
-
-    // Apply active filter
-    if ($active !== null && $active !== '') {
-        $query->where('active', $active);
-    }
-
-
-    $items = $query->paginate(7);
-
-    return view('admin.item.item_show', compact('items','products'));
+   $items = Item::with(['welfare', 'product'])
+             ->where('delete', 0)
+             ->get();
+             
+    return view('admin.item.item_show', compact('items','products','welfares'));
 }
 
     //Active Deactive section
@@ -63,13 +50,41 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'item' => 'required|string|unique:items,item',
-            'product_id' => 'required|exists:products,id',
-            'active' => 'required|boolean',
-            'serial_number' => 'required|string|unique:items,serial_number',
+               'item' => 'required|string|unique:items,item',
+                'product_id' => 'required|exists:products,id',
+                'welfare_id' => 'required|exists:welfares,id',
+                'serial_number' => 'required|string|unique:items,serial_number',
+                'price' => 'required|numeric',
+                'vat' => 'required|numeric',
+                'tax' => 'nullable|numeric',
+                'discount' => 'nullable|numeric',
+                'total_price' => 'nullable|numeric',
+                'active' => 'required|boolean',
         ]);
 
-        Item::create($request->only( 'item', 'product_id', 'active', 'serial_number'));
+                $price = floatval($request->price);
+                $vatPercentage = floatval($request->vat);
+                $taxPercentage = floatval($request->tax);
+                $discountPercentage = floatval($request->discount);
+
+                $vatAmount = ($price * $vatPercentage) / 100;
+                $taxAmount = ($price * $taxPercentage) / 100;
+                $total =($price+$vatAmount+$taxAmount);
+                $discountAmount = ($total * $discountPercentage) / 100;
+                $sub_total=($total-$discountAmount);
+
+                $item = new Item();
+                $item->item = $request->item;
+                $item->product_id = $request->product_id;
+                $item->welfare_id = $request->welfare_id;
+                $item->serial_number = $request->serial_number;
+                $item->price = $price;
+                $item->vat = $vatAmount; // Store calculated VAT
+                $item->tax = $taxAmount; // Store calculated TAX (if needed)
+                $item->discount = $discountAmount; // Store calculated Discount (if needed)
+                $item->total_price = $sub_total; //store calculate full amount
+                $item->active = $request->active;
+                $item->save();
 
         return redirect()->route('item')->with('success', 'Item added successfully.');
     }

@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 font-weight-semibold">
+                <h1 class="m-0 font-weight-bold">
                     <i class="bi bi-bookmark-star-fill"></i> {{ __('Add New Rank') }}
                 </h1>
             </div>
@@ -29,11 +29,11 @@
                                     <select
                                         name="rank"
                                         id="rank"
-                                        class="form-control @error('rank') is-invalid @enderror"
+                                        class="form-select @error('rank') is-invalid @enderror"
                                         required
                                     >
                                         <option value="" disabled {{ old('rank', $rank->rank ?? '') == '' ? 'selected' : '' }}>
-                                            -- Select Rank --
+                                            -- Choose Rank --
                                         </option>
 
                                         @php
@@ -78,11 +78,11 @@
                                     <select
                                         name="type"
                                         id="type"
-                                        class="form-control @error('type') is-invalid @enderror"
+                                        class="form-select @error('type') is-invalid @enderror"
                                         required
                                     >
                                         <option value="" disabled {{ old('type', $rank->type ?? '') == '' ? 'selected' : '' }}>
-                                            -- Select Type --
+                                            -- Choose Type --
                                         </option>
                                         <option value="COMMISSIONED OFFICERS" {{ old('type', $rank->type ?? '') == 'COMMISSIONED OFFICERS' ? 'selected' : '' }}>
                                             COMMISSIONED OFFICERS
@@ -101,24 +101,22 @@
 
 
                             <!-- Active Field -->
-                            <div class="col-md-12">
-                                <label for="active" class="form-label">{{ __('Status') }}</label>
+                                <div class="form-group">
+                                     <label for="active" class="form-label">{{ __('Status') }}</label>
                                 <select name="active" id="active"
-                                    class="form-select @error('active') is-invalid @enderror" required>
-                                    <option disabled {{ old('active') === null ? 'selected' : '' }}>{{ __('Choose...') }}</option>
+                                    class="form-select @error('active') is-invalid @enderror">
                                     <option value="1" {{ old('active') == '1' ? 'selected' : '' }}>{{ __('Active') }}</option>
                                     <option value="0" {{ old('active') == '0' ? 'selected' : '' }}>{{ __('Deactive') }}</option>
                                 </select>
                                 @error('active')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @else
-                                    <div class="invalid-feedback">Please select a valid status.</div>
                                 @enderror
-                            </div>
+                                </div>
 
                             <!-- Submit Button -->
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">{{ __('Add Rank') }}</button>
+                                 <a href="{{ route('rank') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                             </div>
                         </form>
                         <!-- Form End -->

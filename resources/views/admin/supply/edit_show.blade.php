@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-star-fill"></i>{{ __(' Edit Supplier') }}</h1>
+                    <h1 class="m-0 font-weight-bold"><i class="bi bi-truck"></i>{{ __(' Edit Supplier') }}</h1>
                 </div>
             </div>
         </div>
@@ -72,6 +72,7 @@
 
                                 <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">{{ __('Update Supplier') }}</button>
+                                <a href="{{ route('supply') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                             </form>
                         </div>
                     </div>

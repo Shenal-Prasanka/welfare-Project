@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-buildings-fill"></i>{{ __(' Add New Unit') }}</h1>
+                    <h1 class="m-0 font-weight-bold"><i class="bi bi-buildings-fill"></i>{{ __(' Add New Unit') }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -26,7 +26,8 @@
                                 <!-- Rank Field -->
                                 <div class="form-group">
                                     <label for="unit">{{ __('Unit') }}</label>
-                                    <input type="text" name="unit" id="unit" class="form-control" value="">
+                                    <input type="text" name="unit" id="unit" class="form-control  @error('unit') is-invalid @enderror" placeholder="{{ __('Enter Unit Name') }}"
+                                        value="{{ old('unit') }}">
                                     @error('unit')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
@@ -35,8 +36,8 @@
                                 <!-- regement Field -->
                                     <div class="form-group">
                                         <label for="regement_id">{{ __('Regement') }}</label>
-                                        <select name="regement_id" id="regement_id" class="form-control">
-                                            <option value="">{{ __('Select Regement') }}</option>
+                                        <select name="regement_id" id="regement_id" class="form-select @error('regement_id') is-invalid @enderror">
+                                            <option value="">{{ __('Select Regement....') }}</option>
                                             <option value="1">Sri Lanka Armoured Corps</option>
                                             <option value="2">Sri Lanka Artillery</option>
                                             <option value="3">Sri Lanka Engineers</option>
@@ -72,7 +73,7 @@
                                      <label for="active" class="form-label">{{ __('Status') }}</label>
                                 <select name="active" id="active"
                                     class="form-select @error('active') is-invalid @enderror">
-                                    <option disabled {{ old('active') === null ? 'selected' : '' }}>{{ __('Choose...') }}</option>
+                                    <option disabled {{ old('active') === null ? 'selected' : '' }}>{{ __('Select status...') }}</option>
                                     <option value="1" {{ old('active') == '1' ? 'selected' : '' }}>{{ __('Active') }}</option>
                                     <option value="0" {{ old('active') == '0' ? 'selected' : '' }}>{{ __('Deactive') }}</option>
                                 </select>
@@ -83,6 +84,7 @@
 
                                 <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">{{ __('Add Unit') }}</button>
+                                <a href="{{ route('unit') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                             </form>
                         </div>
                     </div>

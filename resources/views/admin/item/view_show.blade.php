@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-buildings-fill"></i>{{ __(' View item') }}</h1>
+                    <h1 class="m-0 font-weight-bold"><i class="bi bi-backpack"></i>{{ __(' View item') }}</h1>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                                 <label>{{ __('Updated At') }}</label>
                                 <input type="text" class="form-control" value="{{ $item->updated_at }}" readonly>
                             </div>
-                            <a href="{{ route('item') }}" class="btn btn-primary">{{ __('Back') }}</a>
+                            <a href="{{ route('item') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                         </div>
                     </div>
                 </div>

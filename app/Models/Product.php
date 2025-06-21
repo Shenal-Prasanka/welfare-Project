@@ -17,6 +17,8 @@ class Product extends Model
         'product',
         'category_id',
         'supply_id',
+        'brand',
+        'model',
         'active',
         'delete',
     ];

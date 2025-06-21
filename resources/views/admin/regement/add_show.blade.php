@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-semibold"><i class="bi bi-star-fill"></i>{{ __(' Add New Regement') }}</h1>
+                    <h1 class="m-0 font-weight-bold"><i class="bi bi-star-half"></i>{{ __(' Add New Regement') }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -28,7 +28,7 @@
                                         <div class="col-md-12">
                                             <label for="regement">{{ __('Regement') }}</label>
                                             <select name="regement" id="regement" class="form-select @error('active') is-invalid @enderror" >
-                                                <option value="">{{ __('Choose...') }}</option>
+                                                <option value="">{{ __('Choose Regement....') }}</option>
                                                 <option value="Sri Lanka Armoured Corps">Sri Lanka Armoured Corps</option>
                                                 <option value="Sri Lanka Artillery">Sri Lanka Artillery</option>
                                                 <option value="Sri Lanka Engineers">Sri Lanka Engineers</option>
@@ -69,7 +69,7 @@
                                 <label for="active" class="form-label">{{ __('Status') }}</label>
                                 <select name="active" id="active"
                                     class="form-select @error('active') is-invalid @enderror" >
-                                    <option disabled {{ old('active') === null ? 'selected' : '' }}>{{ __('Choose...') }}</option>
+                                    <option disabled {{ old('active') === null ? 'selected' : '' }}>{{ __('Choose Status.....') }}</option>
                                     <option value="1" {{ old('active') == '1' ? 'selected' : '' }}>{{ __('Active') }}</option>
                                     <option value="0" {{ old('active') == '0' ? 'selected' : '' }}>{{ __('Deactive') }}</option>
                                 </select>
@@ -82,6 +82,7 @@
                                 <!-- Submit Button -->
                                 <div class="col-md-12 mt-3">
                                 <button type="submit" class="btn btn-primary">{{ __('Add Regement') }}</button>
+                                <a href="{{ route('regement') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                                 </div>
                             </form>
                         </div>

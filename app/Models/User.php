@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\Regement;
+use App\Models\Rank;
+use App\Models\Unit;
 
 class User extends Authenticatable
 {
@@ -21,11 +24,20 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'role',
-        'delete',
-        'remember_token',
+        'mobile',
+        'address',
+        'employee_no',
+        'regement_no',
+        'regement_id',
+        'unit_id',
+        'rank_id',
         'email_verified_at',
+        'role',
+        'active',
+        'delete',
+        'password',
+        'remember_token',
+        
     ];
 
     /**
@@ -51,5 +63,16 @@ class User extends Authenticatable
         ];
     }
 
+     public function regement(){
+         return $this->belongsTo(Regement::class, 'regement_id');
+    }
+  
+    public function unit(){
+         return $this->belongsTo(Unit::class, 'unit_id');
+    }
+  
+    public function rank(){
+         return $this->belongsTo(Rank::class, 'rank_id');
+    }
   
 }

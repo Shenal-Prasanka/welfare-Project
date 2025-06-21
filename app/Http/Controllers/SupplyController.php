@@ -9,23 +9,7 @@ class SupplyController extends Controller
     //Dashboard show section
     public function show(Request $request)
 {
-    $search = $request->input('search');
-    $active = $request->input('active');
-
-    $query = Supply::where('delete', 0); // Start with delete filter
-
-    // Apply search filter
-    if ($search) {
-        $query->where('supply', 'LIKE', "%{$search}%");
-    }
-
-    // Apply active filter
-    if ($active !== null && $active !== '') {
-        $query->where('active', $active);
-    }
-
-    $supplys = $query->paginate(7);
-
+   $supplys = Supply::where('delete', 0)->get(); // Return all non-deleted records
     return view('admin.supply.supply_show', compact('supplys'));
 }
 

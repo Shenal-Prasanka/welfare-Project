@@ -18,24 +18,7 @@ class UnitController extends Controller
     $search = $request->input('search');
     $active = $request->input('active');
 
-    $query = Unit::query();
-
-      // Exclude deleted records
-    $query->where('delete', 0);
-
-    // Apply search filter
-    if ($search) {
-        $query->where('unit', 'LIKE', "%{$search}%");
-    }
-
-    // Apply active filter
-    if ($active !== null && $active !== '') {
-        $query->where('active', $active);
-    }
-
-
-    $units = $query->paginate(7);
-
+    $units = Unit::where('delete', 0)->get(); // Return all non-deleted records
     return view('admin.unit.unit_show', compact('units','regements'));
 }
 

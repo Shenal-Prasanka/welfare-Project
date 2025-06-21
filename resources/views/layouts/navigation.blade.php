@@ -3,7 +3,21 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-            <a href="" class="d-block">{{ Auth::user()->name }}</a>
+            @php
+                $roles = [
+                    0 => 'User',
+                    1 => 'Admin',
+                    2 => 'Unit-clerk',
+                    3 => 'Unit-OC',
+                    4 => 'Shop-Coord-Clerk',
+                    5 => 'Shop-Coord-OC',
+                    6 => 'Welfare-Shop-Clerk',
+                    7 => 'Welfare-Shop-OC',
+                    8 => 'Ledger-Clerk',
+                    9 => 'Ledger-OC',
+                ];
+            @endphp
+            <a href="#" class="d-block">{{ $roles[Auth::user()->role] ?? 'Unknown Role' }}</a>
         </div>
     </div>
 
